@@ -2,6 +2,18 @@ st - simple terminal
 --------------------
 st is a simple virtual terminal emulator for X which sucks less.
 
+Modified keymapping for GameShell:
+Keys: 
+- pad: select key
+- A: press key
+- B: toggles key (useful for shift/ctrl...)
+- X: is shift
+- Y: is backspace
+- VOL -: change keyboard location (top/bottom)
+- SELECT: show / hide keyboard
+- MENU: quit
+- START: show help screen
+
 Modified to run on RS-97.
 => line doubling to deal with the 320x480 resolution
 => TTF fonts replaced by embedded pixel font (from TIC-80)
