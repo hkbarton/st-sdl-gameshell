@@ -4,8 +4,7 @@
 #define NUM_ROWS 6
 #define NUM_KEYS 18
 
-//#ifdef RS97
-
+#if defined(RS97)
 #define KEY_UP SDLK_UP
 #define KEY_DOWN SDLK_DOWN
 #define KEY_LEFT SDLK_LEFT
@@ -19,8 +18,21 @@
 #define KEY_QUIT SDLK_ESCAPE // SELECT
 #define KEY_HELP SDLK_RETURN // START
 
-/*#else
+#elif defined(GAMESHELL)
+#define KEY_UP SDLK_UP
+#define KEY_DOWN SDLK_DOWN
+#define KEY_LEFT SDLK_LEFT
+#define KEY_RIGHT SDLK_RIGHT
+#define KEY_ENTER SDLK_j // A
+#define KEY_TOGGLE SDLK_k // B
+#define KEY_BACKSPACE SDLK_i // Y
+#define KEY_SHIFT SDLK_u // X
+#define KEY_LOCATION SDLK_KP_MINUS // SHIFT + SPACE
+#define KEY_ACTIVATE SDLK_SPACE // SPACE
+#define KEY_QUIT SDLK_ESCAPE // MENU
+#define KEY_HELP SDLK_RETURN // START
 
+#else
 #define KEY_UP SDLK_UP
 #define KEY_DOWN SDLK_DOWN
 #define KEY_LEFT SDLK_LEFT
@@ -32,7 +44,7 @@
 #define KEY_LOCATION SDLK_l
 #define KEY_ACTIVATE SDLK_BACKQUOTE
 
-#endif*/
+#endif
 
 #define KMOD_SYNTHETIC (1 << 13)
 
@@ -93,6 +105,35 @@ void init_keyboard() {
 
 }
 
+#ifdef GAMESHELL
+char* help = 
+"How to use:\n"
+"  ARROWS: select key from keyboard\n"
+"  A: press key\n"
+"  B: toggle key (useful for shift/ctrl...)\n"
+"  X: shift\n"
+"  Y: backspace\n"
+"  VOL - : change keyboard location (top/bottom)\n"
+"  SELECT: show / hide keyboard\n"
+"  MENU: quit\n"
+"  START: show this help\n\n"
+"Cheatcheet (tutorial at www.shellscript.sh):\n"
+"  TAB key         complete path\n"
+"  UP/DOWN keys    navigate history\n"
+"  pwd             print current directory\n"
+"  ls              list files (-l for file size)\n"
+"  cd <d>          change directory (.. = go up)\n"
+"  cp <f> <d>      copy files (dest can be dir)\n"
+"  mv <f> <d>      move files (dest can be dir)\n"
+"  rm <f>          remove files (use -rf for dir)\n"
+"  top             see running processes (q to quit)\n"
+"  more <f>        see content of text file\n"
+"  file <f>        see type of file\n"
+"  opkg install <f.ipk>  install package\n"
+"  opkg remove <f>       remove package\n"
+"  grep <pattern> <f>    find in files\n"
+;
+#else
 char* help = 
 "How to use:\n"
 "  ARROWS: select key from keyboard\n"
@@ -120,6 +161,7 @@ char* help =
 "  opkg remove <f>       remove package\n"
 "  grep <pattern> <f>    find in files\n"
 ;
+#endif
 
 void draw_keyboard(SDL_Surface* surface) {
 	unsigned short bg_color = SDL_MapRGB(surface->format, 64, 64, 64);
